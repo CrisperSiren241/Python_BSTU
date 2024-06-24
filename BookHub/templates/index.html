@@ -1,0 +1,103 @@
+{% extends 'base.html' %} {% block title %} HomePage {% endblock %} {% block
+body %}
+<div class="py-20 md:py-28">
+  <div class="container px-4 mx-auto">
+    <div class="flex flex-wrap xl:items-center">
+      <div class="w-full xl:w-1/2 px-4 mb-16 md:mb-0">
+        <h1
+          class="mb-6 text-3xl md:text-5xl lg:text-6xl leading-tight font-bold tracking-tight"
+        >
+          Систематизация любительских книг и переводов веб-новелл
+        </h1>
+        <p class="mb-8 text-lg md:text-xl font-medium">
+          Добро пожаловать на BookHub! Ваш надежный помощник в мире любительской
+          литературы и переводов. Наши полки виртуальной библиотеки BookHub
+          наполнены разнообразием любительских книг и новелл, переведенных с
+          любовью и страстью.
+        </p>
+        <div class="flex flex-wrap md:justify-center py-5">
+          <div class="w-full md:w-auto py-1 md:py-0 md:mr-4">
+            <a
+              class="inline-block py-5 px-7 w-full text-base md:text-lg leading-4 text-green-50 font-medium text-center bg-black hover:bg-gray-400 focus:ring-2 border rounded-md shadow-sm"
+              href="#"
+              >Начните свою историю!</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="w-full xl:w-1/2 px-4 slider py-6 ">
+        <div class="relative mx-auto md:mr-0 max-w-max object-cover">
+          <img
+            class="relative rounded-3xl"
+            src="../static/img/library.jpg"
+            alt="Изображение"
+          />
+        </div>
+        <div class="relative mx-auto md:mr-0 max-w-max object-cover">
+          <img
+            class="relative rounded-3xl"
+            src="../static/img/library2.jpg"
+            alt="Изображение"
+          />
+        </div>
+        <div class="relative mx-auto md:mr-0 max-w-max object-cover">
+          <img
+            class="relative rounded-3xl"
+            src="../static/img/library3.jpg"
+            alt="Изображение"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="py-20 xl:pt-24 xl:pb-28">
+  <div class="container px-4 mx-auto">
+    <h3
+      class="mb-4 text-3xl md:text-5xl text-coolGray-900 font-bold tracking-tighter p-4"
+    >
+      Популярное за последнее время
+    </h3>
+    <div class="flex flex-wrap -mx-4">
+      {% for book in books %}
+      <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:w-full p-4">
+        <div
+          class="flex flex-col items-center pt-10 px-8 pb-8 rounded-md shadow-md hover:scale-105 transition duration-500"
+        >
+          <img
+            src="{{ book.cover }}"
+            alt="{{ book.title }}"
+            class="pb-7 object-cover w-full h-96"
+          />
+          <p
+            class="inline-block py-3 px-7 w-full text-center h-20 font-bold xl:text-lg lg:text-sm"
+          >
+            {{ book.title }}
+          </p>
+          <a
+            class="inline-block py-3 px-7 w-full text-white font-medium text-center bg-black focus:ring-2 focus:ring-opacity-50 rounded-md shadow-sm"
+            href="{{ url_for('book', book_id=book.id) }}"
+            >Читать</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-20 xl:pt-24 xl:pb-28">
+  <div class="container px-4 mx-auto">
+    <h3
+      class="mb-4 text-3xl md:text-5xl text-coolGray-900 font-bold tracking-tighter"
+    >
+      Последние обновления
+    </h3>
+    <div class="flex flex-wrap">
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

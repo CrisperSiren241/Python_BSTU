@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Добро пожаловать в приложение "Виртуальные коробки"</h1>
+        <p class="lead">Количество созданных коробок: {{ count }}</p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('boxes') }}">Просмотреть список коробок</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block title %} Catalog {% endblock %} {% block body
+%}
+<div class="">
+  <div class="container px-7 mx-auto">
+    <h1 class="text-7xl font-extrabold py-10 text-center">Каталог</h1>
+    <div class="flex flex-wrap lg:items-center -mx-4">
+      <div class="w-full text-2xl">
+        <div class="flex flex-col">
+          <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-lg">
+            <form action="{{ url_for('catalog') }}" method="GET">
+              <div
+                class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              >
+                <div class="flex flex-col">
+                  <label
+                    for="name"
+                    class="text-md py-4 font-medium text-stone-600"
+                    >Автор</label
+                  >
+                  <input
+                    type="text"
+                    id="author"
+                    name="author"
+                    placeholder="John Doe"
+                    class="mt-1 block w-full rounded-md border border-gray-100 bg-gray-100 px-4 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  />
+                </div>
+
+                <div class="flex flex-col">
+                  <label
+                    for="genre"
+                    class="text-md font-medium py-4 text-stone-600"
+                    >Жанр</label
+                  >
+
+                  <select
+                    id="genre"
+                    name="genre"
+                    class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  >
+                    <option value="">Все</option>
+                    {% for genre in genres %}
+                    <option value="{{ genre.id }}">{{ genre.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div
+                class="mt-6 pt-10 grid w-full grid-cols-2 justify-end space-x-4 md:flex"
+              >
+                <button
+                  type="submit"
+                  class="rounded-lg bg-black px-8 py-2 font-medium text-white outline-none"
+                >
+                  Искать
+                </button>
+                <button
+                  type="submit"
+                  class="rounded-lg px-8 py-2 font-medium text-gray-700 outline-none"
+                  onclick="resetFilters()"
+                >
+                  Сбросить
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="">
+  <div class="container px-4 mx-auto">
+    <div class="flex flex-wrap -mx-4">
+      {% if books %} {% for book in books %}
+      <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+        <div
+          class="flex flex-col items-center pt-10 px-8 pb-8 bg-coolGray-50 rounded-md shadow-md hover:scale-105 transition duration-500"
+        >
+          <img
+            src="{{ book.cover }}"
+            alt="{{ book.title }}"
+            class="pb-7 object-cover w-full h-96"
+          />
+          <p
+            class="inline-block py-3 px-7 w-full text-center h-20 font-bold xl:text-lg lg:text-sm"
+          >
+            {{ book.title }}
+          </p>
+          <a
+            class="inline-block py-3 px-7 w-full text-white font-medium text-center bg-black focus:ring-2 focus:ring-opacity-50 rounded-md shadow-sm"
+            href="{{ url_for('book', book_id=book.id) }}"
+            >Читать</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="px-4 py-10 font-medium text-3xl text-center w-full ">
+        По вашему запросу ничего не найдено
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

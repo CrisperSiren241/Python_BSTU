@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Коробка {{ box.name }}{% endblock %}
+
+{% block content %}
+<h1 class="text-uppercase" style="color: {{ color_codes[box.color] }};">Коробка {{ box.name }}</h1>
+<h2>Содержимое:</h2>
+<ul class="list-none">
+    {% set item_counts = {} %}
+    {% for item in items %}
+    {% if item.name not in item_counts %}
+    {% set _ = item_counts.update({item.name: 1}) %}
+    {% else %}
+    {% set _ = item_counts.update({item.name: item_counts[item.name] + 1}) %}
+    {% endif %}
+    {% endfor %}
+
+    {% for item_name, count in item_counts.items() %}
+    <li class="py-2">
+        <span class="text-uppercase">{{ item_name }}</span> ({{ count }} {% if count > 1 %}штук{% else %}штука{% endif
+        %})
+    </li>
+    {% endfor %}
+</ul>
+<h2 class="mt-4">Добавить новый предмет</h2>
+<p>Доступный объем: {{ '%.1f'|format(available_capacity) }} м³</p>
+<form method="POST">
+    <div class="mb-4">
+        <label for="item_name" class="block text-gray-700 text-sm font-bold mb-2">Название предмета:</label>
+        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="item_name" name="name" required>
+    </div>
+    <div class="mb-4">
+        <label for="item_volume" class="block text-gray-700 text-sm font-bold mb-2">Объем (м³):</label>
+        <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="item_volume" name="volume" step="1" required>
+    </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Добавить</button>
+</form>
+<a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-3" href="{{ url_for('boxes') }}">Назад к списку коробок</a>
+{% endblock %}

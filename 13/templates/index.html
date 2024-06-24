@@ -1,0 +1,40 @@
+{% extends 'layout.html' %} {% block title %} Main {% endblock %} {% block
+body%} 
+
+<section class="py-20 xl:pt-24 xl:pb-28">
+    <div class="container px-4 mx-auto">
+      <h3
+        class="mb-4 text-3xl md:text-5xl text-coolGray-900 font-bold tracking-tighter p-4"
+      >
+        Популярное за последнее время
+      </h3>
+      <div class="flex flex-wrap -mx-4">
+        {% for work in works %}
+        <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:w-full p-4">
+          <div
+            class="flex flex-col items-center pt-10 px-8 pb-8 rounded-md shadow-md hover:scale-105 transition duration-500"
+          >
+            <img
+              src="{{ work.url }}"
+              alt="{{ work.title }}"
+              class="pb-7 object-cover w-full h-96"
+            />
+            <p
+              class="inline-block py-3 px-7 w-full text-center h-20 font-bold xl:text-lg lg:text-sm"
+            >
+              {{ work.title }}
+            </p>
+            <a
+              class="inline-block py-3 px-7 w-full text-white font-medium text-center bg-black focus:ring-2 focus:ring-opacity-50 rounded-md shadow-sm"
+              href="{{ url_for('movie_detail', movie_id=work.id) }}"
+              >Перейти</a
+            >
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+
+{% endblock %}

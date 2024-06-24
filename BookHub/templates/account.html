@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block title %} Личный кабинет {% endblock %} {%
+block body %}
+<div class="container mx-auto px-4 py-16">
+  <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+    Личный кабинет
+  </h2>
+
+  <div class="flex flex-col xl:flex-row xl:space-x-6">
+    <div class="w-full h-60 xl:w-1/3 bg-white rounded p-6 shadow-md xl:block hidden">
+      <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">
+        Навигация
+      </h3>
+
+      <ul>
+        <li class="mb-2">
+          <a href="#" class="text-gray-600 hover:text-gray-900">Профиль</a>
+        </li>
+        <li class="mb-2">
+          <a href="#" class="text-gray-600 hover:text-gray-900">Настройки</a>
+        </li>
+        <li class="mb-2">
+          <a href="#" class="text-gray-600 hover:text-gray-900">Сообщения</a>
+        </li>
+        <li class="mb-2">
+          <a href="/logout" class="text-gray-600 hover:text-gray-900">Выход</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-full xl:w-2/3 bg-white rounded p-6 shadow-md">
+      <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">
+        {{ user.login }}
+      </h3>
+
+      <h4 class="text-xl font-bold text-center text-gray-700 mt-8 mb-4">
+        Ваши избранные книги:
+      </h4>
+
+      <div class="flex flex-wrap -mx-4">
+        {% for book in favorite_books %}
+        <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 p-4">
+          <div
+            class="flex flex-col items-center pt-10 px-1 pb-8 rounded-md shadow-md hover:scale-105 transition duration-500"
+          >
+            <img
+              src="{{ book.cover }}"
+              alt="{{ book.title }}"
+              class="pb-7 object-cover w-full h-80"
+            />
+            <p
+              class="inline-block py-3 px-7 w-full text-center h-20 font-bold xl:text-lg lg:text-sm"
+            >
+              {{ book.title }}
+            </p>
+            <a
+              class="inline-block py-3 px-1 w-2/3 text-white font-medium text-center bg-black focus:ring-2 focus:ring-opacity-50 rounded-md shadow-sm"
+              href="{{ url_for('book', book_id=book.id) }}"
+              >Читать</a
+            >
+          </div>
+        </div>
+        {% endfor %} 
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

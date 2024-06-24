@@ -1,0 +1,65 @@
+{% extends 'layout.html' %} 
+{% block title %} {{ movie.title }} {% endblock %} 
+{% block body %}
+<div class="md:py-28">
+  <div class="container px-4 mx-auto">
+    <div class="flex flex-wrap justify-around -mx-4 pt-6">
+      <div class="object-cover w-full xl:w-1/4 px-4">
+        <div class="relative flex justify-center mx-auto md:mr-0">
+          <img
+            class="relative rounded-3xl object-cover max-w-xs md:max-w-md lg:max-w-lg"
+            src="{{ movie.url }}"
+          />
+        </div>
+      </div>
+      <div class="w-full xl:w-1/2 px-4 mb-16 md:mb-0">
+        <h1
+          class="pt-6 mb-6 text-3xl md:text-5xl lg:text-6xl leading-tight font-bold tracking-tight"
+        >
+          {{ movie.title }}
+        </h1>
+        <p class="my-3 text-lg md:text-xl font-medium">Дата выхода: {{ movie.release_date}}</p>
+        <div class="flex flex-wrap flex-col md:flex-row py-5">
+          <!-- Additional movie details or actions can go here -->
+        </div>
+        <div class="mt-6">
+            <h2 class="text-2xl font-bold mb-4">Оставить мнение</h2>
+            {% if session['user_id'] %}
+            <form action="{{ url_for('submit_opinion', movie_id=movie.id) }}" method="POST">
+              <textarea
+                name="content"
+                class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows="4"
+                placeholder="Ваше мнение о фильме"
+                required
+              ></textarea>
+              <button
+                type="submit"
+                class="mt-4 inline-block py-3 px-7 bg-black text-white font-medium text-center rounded-md shadow-sm focus:ring-2 focus:ring-opacity-50 focus:ring-blue-500"
+              >
+                Отправить
+              </button>
+            </form>
+            {% else %}
+            <p class="mt-4 text-lg">Чтобы оставить мнение, пожалуйста, <a href="{{ url_for('login_user') }}" class="text-blue-500 hover:underline">войдите в систему</a>.</p>
+            {% endif %}
+        </div>
+        <div class="mt-6">
+            <h2 class="text-3xl font-bold mb-6">Отзывы пользователей</h2>
+            <div class="space-y-8">
+              {% for post in posts %}
+              <div class="p-6 border border-gray-300 rounded-lg shadow-md">
+                <p class="text-lg">{{ post.content }}</p>
+                <p class="mt-4 text-sm text-gray-500">- {{ post.author.username }}</p>
+                
+              </div>
+              {% else %}
+              <p class="text-lg">Отзывов пока нет. Будьте первым, кто оставит отзыв!</p>
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

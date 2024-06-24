@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Ошибка{% endblock %}
+
+{% block content %}
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Ошибка</h4>
+        <p>{{ error_message }}</p>
+    </div>
+    <a class="btn btn-secondary mt-3" href="{{ url_for('boxes') }}">Назад к списку коробок</a>
+{% endblock %}

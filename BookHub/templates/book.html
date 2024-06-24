@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block title %} Catalog {% endblock %} {% block body
+%}
+<div class="md:py-28">
+  <div class="container px-4 mx-auto">
+    <div class="flex flex-wrap justify-around -mx-4 pt-6">
+      <div class="object-cover w-full xl:w-1/4 px-4">
+        <div class="relative flex justify-center mx-auto md:mr-0">
+          <img
+            class="relative rounded-3xl object-cover max-w-xs md:max-w-md lg:max-w-lg"
+            src="{{ book.cover }}"
+          />
+        </div>
+      </div>
+      <div class="w-full xl:w-1/2 px-4 mb-16 md:mb-0">
+        <h1
+          class="pt-6 mb-6 text-3xl md:text-5xl lg:text-6xl leading-tight font-bold tracking-tight"
+        >
+          {{ book.title }}
+        </h1>
+        <p class="my-3 text-lg md:text-xl font-medium">{{ auth.login }}</p>
+        <p class="mb-8 text-lg md:text-xl font-light">{{ book.description }}</p>
+        <div class="flex flex-wrap flex-col md:flex-row py-5">
+          <div class="w-auto py-1 md:py-0 md:mr-4">
+            <a
+              class="inline-block py-5 px-7 w-full text-base md:text-lg leading-4 text-white font-medium text-center bg-black hover:bg-white hover:text-black focus:ring-2 border rounded-md shadow-sm"
+              href="#"
+              >Начать читать</a
+            >
+          </div>
+          {% if session.logged_in %}
+          <div class="w-auto py-1 md:py-0 md:mr-4">
+            <form
+              class="w-full"
+              action="{{ url_for('add_to_favorites', book_id=book.id) }}"
+              method="post"
+            >
+              <button
+                class="inline-block py-5 px-7 w-full text-base md:text-lg leading-4 text-black font-medium text-center border-black hover:bg-black hover:text-white focus:ring-2 border rounded-md shadow-sm"
+                type="submit"
+              >
+                {% if session.isLike %} 
+                Убрать из избранного 
+                {% else %} 
+                Добавить в избранное 
+                {% endif %}
+              </button>
+            </form>
+          </div>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

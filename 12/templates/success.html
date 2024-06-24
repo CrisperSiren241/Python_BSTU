@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Успех{% endblock %}
+
+{% block content %}
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Успех!</h4>
+        <p>{{ message }}</p>
+    </div>
+    <a class="btn btn-secondary mt-3" href="{{ url_for('boxes') }}">Назад к списку коробок</a>
+{% endblock %}

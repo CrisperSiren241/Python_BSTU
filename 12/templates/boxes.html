@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Список коробок{% endblock %}
+
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Список коробок</h1>
+    <ul class="list-none">
+        {% for box in boxes %}
+            <li class="py-2 border-b border-gray-200 flex justify-between items-center">
+                <div>
+                    <span class="text-lg">{{ box.name }}</span>
+                    <span class="text-uppercase font-bold" style="color: {{ color_codes[box.color] }};">{{ box.color }}</span>
+                    <span>{{ box.capacity }}</span>
+                </div>
+                <a class="text-blue-500 hover:text-blue-700" href="{{ url_for('box_page', box_name=box.name) }}">Просмотр</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2 class="text-2xl font-bold mt-4">Создать новую коробку</h2>
+    <form method="POST" class="mt-4">
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Имя:</label>
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" required>
+        </div>
+        <div class="mb-4">
+            <label for="color" class="block text-gray-700 text-sm font-bold mb-2">Цвет:</label>
+            <select class="form-control" id="color" name="color" required>
+                {% for color in color_codes.keys() %}
+                    <option value="{{ color }}">{{ color }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="capacity" class="block text-gray-700 text-sm font-bold mb-2">Вместимость (м³):</label>
+            <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="capacity" name="capacity" step="1" required>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Создать</button>
+    </form>
+{% endblock %}
